@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meraki - Desserts & Beverages</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -12,7 +12,7 @@
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       background: #000 url('https://i.gifer.com/ZZ5H.gif') no-repeat center center;
-      background-size: 100px 100px;
+      background-size: 80px 80px;
       z-index: 9999;
     }
 
@@ -20,7 +20,7 @@
     body::before {
       content: '';
       background: url('https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
-      position: absolute;
+      position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: -2;
     }
@@ -28,7 +28,7 @@
     body::after {
       content: '';
       background: rgba(0, 0, 0, 0.7);
-      position: absolute;
+      position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: -1;
     }
@@ -54,51 +54,103 @@
       from { text-shadow: 0 0 5px #ffd28c; }
       to { text-shadow: 0 0 20px #ff9900; }
     }
+
+    /* Fade-in effect for scroll */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Page transition */
+    .page-transition {
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+    .page-transition.fade-out {
+      opacity: 0;
+    }
   </style>
 
   <script>
+    // Hide loader, start animations
     window.addEventListener('load', () => {
       document.getElementById('loader').style.display = 'none';
+      document.body.classList.add('page-transition');
+
+      // Fade up animations
+      const faders = document.querySelectorAll('.fade-up');
+      const appearOptions = { threshold: 0.2 };
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+      faders.forEach(fader => appearOnScroll.observe(fader));
+    });
+
+    // Smooth page transition when clicking links
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('a');
+
+      links.forEach(link => {
+        if (link.hostname === window.location.hostname) {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+              window.location.href = this.href;
+            }, 500); // match CSS transition time
+          });
+        }
+      });
     });
   </script>
 </head>
-<body class="text-white py-16 px-6 sm:px-10 lg:px-20 relative overflow-x-hidden">
+
+<body class="text-white py-16 px-6 sm:px-8 lg:px-20 relative overflow-x-hidden min-h-screen">
 
   <div id="loader"></div>
 
-  <div class="max-w-6xl mx-auto text-center mb-16">
-    <h1 class="text-5xl font-extrabold glow-text mb-4">Meraki’s Desserts & Beverages</h1>
-    <p class="text-lg text-amber-200">End your meal with sweet magic ✨</p>
+  <div class="max-w-6xl mx-auto text-center mb-16 fade-up">
+    <h1 class="text-5xl sm:text-6xl font-extrabold glow-text mb-4">Meraki’s Desserts & Beverages</h1>
+    <p class="text-lg sm:text-xl text-amber-200">End your meal with sweet magic ✨</p>
   </div>
 
   <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍰 Classic Cheesecake</h2>
       <p>Rich and creamy cheesecake topped with fresh berries.</p>
     </div>
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍫 Chocolate Lava Cake</h2>
       <p>Molten chocolate cake served with vanilla ice cream.</p>
     </div>
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍦 Artisan Gelato</h2>
       <p>Choice of pistachio, dark chocolate, or mango swirl gelato.</p>
     </div>
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">☕ Signature Cappuccino</h2>
       <p>Freshly brewed espresso topped with velvety milk foam.</p>
     </div>
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍹 Tropical Mocktail</h2>
       <p>A refreshing blend of pineapple, orange, and mint.</p>
     </div>
-    <div class="glass rounded-2xl p-6">
+    <div class="glass rounded-2xl p-6 fade-up">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🥤 Iced Berry Smoothie</h2>
       <p>Frozen berries blended with yogurt and honey.</p>
     </div>
   </div>
 
-  <div class="text-center mt-16">
+  <div class="text-center mt-16 fade-up">
     <a href="menu1.html" class="inline-block bg-orange-500 hover:bg-orange-600 font-bold py-3 px-8 rounded-full transition transform hover:scale-110 mr-4">
       ⬅ Back to Main Menu
     </a>
