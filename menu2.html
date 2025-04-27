@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meraki - Desserts & Beverages</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Spinner */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #000 url('https://i.gifer.com/ZZ5H.gif') no-repeat center center;
+      background-size: 100px 100px;
+      z-index: 9999;
+    }
+
+    /* Background with overlay */
+    body::before {
+      content: '';
+      background: url('https://images.unsplash.com/photo-1521305916504-4a1121188589?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* Glass effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .glass:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(255, 165, 0, 0.4);
+    }
+
+    .glow-text {
+      text-shadow: 0 0 5px #ffd28c, 0 0 15px #ff9900;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { text-shadow: 0 0 5px #ffd28c; }
+      to { text-shadow: 0 0 20px #ff9900; }
+    }
+  </style>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.getElementById('loader').style.display = 'none';
+    });
+  </script>
+</head>
+<body class="text-white py-16 px-6 sm:px-10 lg:px-20 relative overflow-x-hidden">
+
+  <div id="loader"></div>
+
+  <div class="max-w-6xl mx-auto text-center mb-16">
+    <h1 class="text-5xl font-extrabold glow-text mb-4">Meraki’s Desserts & Beverages</h1>
+    <p class="text-lg text-amber-200">End your meal with sweet magic ✨</p>
+  </div>
+
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍰 Classic Cheesecake</h2>
+      <p>Rich and creamy cheesecake topped with fresh berries.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍫 Chocolate Lava Cake</h2>
+      <p>Molten chocolate cake served with vanilla ice cream.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍦 Artisan Gelato</h2>
+      <p>Choice of pistachio, dark chocolate, or mango swirl gelato.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">☕ Signature Cappuccino</h2>
+      <p>Freshly brewed espresso topped with velvety milk foam.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍹 Tropical Mocktail</h2>
+      <p>A refreshing blend of pineapple, orange, and mint.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🥤 Iced Berry Smoothie</h2>
+      <p>Frozen berries blended with yogurt and honey.</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-16">
+    <a href="menu1.html" class="inline-block bg-orange-500 hover:bg-orange-600 font-bold py-3 px-8 rounded-full transition transform hover:scale-110 mr-4">
+      ⬅ Back to Main Menu
+    </a>
+    <a href="index.html" class="inline-block bg-orange-400 hover:bg-orange-500 font-bold py-3 px-8 rounded-full transition transform hover:scale-110">
+      🏠 Home
+    </a>
+  </div>
+
+</body>
+</html>

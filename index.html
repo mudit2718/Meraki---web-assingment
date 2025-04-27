@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meraki - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+    }
+    .background-overlay {
+      background: rgba(0, 0, 0, 0.7);
+      min-height: 100vh;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+    }
+    .glass:hover {
+      transform: scale(1.03);
+    }
+    .fade-in {
+      animation: fadeIn 1.5s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-overlay">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center p-6">
+      <div class="text-3xl font-bold text-amber-300">Meraki</div>
+      <div class="space-x-8 text-lg">
+        <a href="index.html" class="hover:text-amber-400">Home</a>
+        <a href="menu.html" class="hover:text-amber-400">Menu</a>
+        <a href="about.html" class="hover:text-amber-400">About</a>
+        <a href="contact.html" class="hover:text-amber-400">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-center flex flex-col items-center justify-center min-h-[80vh] fade-in">
+      <h1 class="text-6xl md:text-7xl font-bold mb-6 text-amber-300">Taste the Soul</h1>
+      <p class="text-lg md:text-2xl mb-10 text-gray-200 italic">Crafted with love, served with passion</p>
+      <a href="menu.html" class="bg-amber-400 text-gray-900 font-bold px-8 py-4 rounded-full hover:bg-amber-500 transition">
+        Explore Menu
+      </a>
+    </section>
+
+    <!-- Our Specialties -->
+    <section class="py-20 px-6">
+      <h2 class="text-4xl text-center text-amber-300 font-bold mb-12 fade-in">Our Specialties</h2>
+      <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        <div class="glass p-6 text-center fade-in">
+          <h3 class="text-2xl font-semibold mb-4">Artisan Wraps</h3>
+          <p class="text-gray-200">Hand-rolled perfection with fresh greens, cheese, and secret sauces.</p>
+        </div>
+        <div class="glass p-6 text-center fade-in">
+          <h3 class="text-2xl font-semibold mb-4">Signature Pizzas</h3>
+          <p class="text-gray-200">Crispy crusts, homemade sauces, and farm-fresh toppings.</p>
+        </div>
+        <div class="glass p-6 text-center fade-in">
+          <h3 class="text-2xl font-semibold mb-4">Soulful Brews</h3>
+          <p class="text-gray-200">Specialty coffees, cold brews, and refreshing iced teas made with soul.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="py-20 bg-black/70">
+      <h2 class="text-4xl text-center text-amber-300 font-bold mb-12 fade-in">Gallery</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=60" alt="Artisan Wrap" class="rounded-lg hover:scale-105 transition" />
+        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=60" alt="Signature Pizza" class="rounded-lg hover:scale-105 transition" />
+        <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=800&q=60" alt="Iced Coffee" class="rounded-lg hover:scale-105 transition" />
+        <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60" alt="Cozy Cafe" class="rounded-lg hover:scale-105 transition" />
+      </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="py-20 px-6">
+      <h2 class="text-4xl text-center text-amber-300 font-bold mb-12 fade-in">Customer Reviews</h2>
+      <div class="max-w-4xl mx-auto space-y-10">
+        <div class="glass p-6 fade-in">
+          <p class="italic text-gray-300">"The atmosphere at Meraki is pure magic. Food made with soul. Coffee that warms your heart."</p>
+          <p class="mt-4 text-yellow-300 font-bold">— Aditi S.</p>
+        </div>
+        <div class="glass p-6 fade-in">
+          <p class="italic text-gray-300">"Every visit to Meraki feels like a little vacation from the world. So much love in every bite!"</p>
+          <p class="mt-4 text-yellow-300 font-bold">— Neeraj M.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story Teaser -->
+    <section class="py-20 px-6 bg-black/80">
+      <div class="max-w-5xl mx-auto text-center fade-in">
+        <h2 class="text-4xl text-amber-300 font-bold mb-6">Our Story</h2>
+        <p class="text-gray-200 leading-relaxed">
+          Born in 2020, Meraki is not just a café — it's a feeling. A home for dreamers, artists, lovers of good food and cozy corners.
+          Come be a part of the Meraki family.
+        </p>
+        <a href="about.html" class="mt-6 inline-block bg-amber-400 text-gray-900 font-bold px-8 py-4 rounded-full hover:bg-amber-500 transition">
+          Learn More
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact / Visit Us -->
+    <section class="py-20 px-6">
+      <div class="max-w-5xl mx-auto text-center fade-in">
+        <h2 class="text-4xl text-amber-300 font-bold mb-6">Visit Us</h2>
+        <p class="text-gray-200">Scheme 78, Near ICAI Bhawan, Vijay Nagar, Indore</p>
+        <p class="mt-2 text-gray-400">Open Everyday: 11:00 AM - 11:00 PM</p>
+        <div class="mt-8">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.205401073585!2d75.88596121496089!3d22.76488278507909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396303e16a1065fb%3A0x61296c509ef6d068!2sScheme%2078%2C%20Near%20ICAI%20Bhawan%2C%20Vijay%20Nagar%2C%20Indore!5e0!3m2!1sen!2sin!4v1682672074603!5m2!1sen!2sin"
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" class="rounded-lg shadow-lg">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-500 text-sm">
+      © 2025 Meraki. Crafted with 💛 in Indore.
+    </footer>
+
+  </div>
+</body>
+</html>

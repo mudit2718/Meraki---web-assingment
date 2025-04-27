@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meraki - Main Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Spinner */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: #000 url('https://i.gifer.com/ZZ5H.gif') no-repeat center center;
+      background-size: 100px 100px;
+      z-index: 9999;
+    }
+
+    /* Background with overlay */
+    body::before {
+      content: '';
+      background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* Glass effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .glass:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
+    }
+
+    .glow-text {
+      text-shadow: 0 0 5px #ff914d, 0 0 15px #ff6600;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { text-shadow: 0 0 5px #ff914d; }
+      to { text-shadow: 0 0 20px #ff6600; }
+    }
+  </style>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.getElementById('loader').style.display = 'none';
+    });
+  </script>
+</head>
+<body class="text-white py-16 px-6 sm:px-10 lg:px-20 relative overflow-x-hidden">
+
+  <div id="loader"></div>
+
+  <div class="max-w-6xl mx-auto text-center mb-16">
+    <h1 class="text-5xl font-extrabold glow-text mb-4">Meraki’s Main Menu</h1>
+    <p class="text-lg text-amber-200">Serving creativity on every plate ✨</p>
+  </div>
+
+  <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🥪 Veggie Delight Sandwich</h2>
+      <p>Fresh veggies with creamy hummus and herbs on multigrain bread.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍕 Cheesy Mushroom Pizza</h2>
+      <p>Stone-baked pizza with melty cheese and gourmet mushrooms.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🌯 Tandoori Paneer Wrap</h2>
+      <p>Tandoori-spiced paneer wrapped in soft whole wheat roti.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🥗 Mediterranean Salad Bowl</h2>
+      <p>Chickpeas, cucumbers, tomatoes, feta, and olives with a tangy dressing.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🌮 Mexican Bean Tacos</h2>
+      <p>Spiced beans with salsa and guacamole stuffed in soft tacos.</p>
+    </div>
+    <div class="glass rounded-2xl p-6">
+      <h2 class="text-2xl font-bold text-amber-300 mb-2">🍜 Asian Noodle Bowl</h2>
+      <p>Stir-fried noodles with tofu, veggies, and soy-ginger glaze.</p>
+    </div>
+  </div>
+
+  <div class="text-center mt-16">
+    <a href="menu2.html" class="inline-block bg-orange-500 hover:bg-orange-600 font-bold py-3 px-8 rounded-full transition transform hover:scale-110 mr-4">
+      ➡ Next Page (Desserts & Beverages)
+    </a>
+    <a href="index.html" class="inline-block bg-orange-400 hover:bg-orange-500 font-bold py-3 px-8 rounded-full transition transform hover:scale-110">
+      🏠 Home
+    </a>
+  </div>
+
+</body>
+</html>
