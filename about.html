@@ -37,21 +37,16 @@
       from { text-shadow: 0 0 10px #ffcc70; }
       to { text-shadow: 0 0 20px #ffaa00, 0 0 30px #ffaa00; }
     }
+
+    /* Scroll Fade-in */
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1.2s forwards;
+      transform: translateY(40px);
+      transition: all 1s ease;
     }
-    .fade-in.delay-1 { animation-delay: 0.3s; }
-    .fade-in.delay-2 { animation-delay: 0.6s; }
-    .fade-in.delay-3 { animation-delay: 0.9s; }
-    .fade-in.delay-4 { animation-delay: 1.2s; }
-    .fade-in.delay-5 { animation-delay: 1.5s; }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -60,17 +55,17 @@
   <div class="overlay">
 
     <!-- Heading -->
-    <div class="text-center mb-16">
-      <h1 class="text-5xl md:text-6xl font-bold text-amber-300 glow-heading fade-in delay-1">Meraki — Where Food Meets Soul</h1>
-      <p class="text-lg md:text-xl mt-4 text-yellow-200 italic fade-in delay-2">"Crafted with Passion. Served with Soul."</p>
-      <p class="text-sm md:text-base mt-3 text-gray-300 fade-in delay-3">
+    <div class="text-center mb-16 fade-in">
+      <h1 class="text-5xl md:text-6xl font-bold text-amber-300 glow-heading">Meraki — Where Food Meets Soul</h1>
+      <p class="text-lg md:text-xl mt-4 text-yellow-200 italic">"Crafted with Passion. Served with Soul."</p>
+      <p class="text-sm md:text-base mt-3 text-gray-300">
         Follow our journey on 
         <a href="https://www.instagram.com/meraki_the_creative_cuisine" target="_blank" class="underline hover:text-amber-400">Instagram</a>
       </p>
     </div>
 
     <!-- About Sections -->
-    <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 fade-in delay-4">
+    <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 fade-in">
 
       <div class="glass-card p-8">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">📖 Our Story</h2>
@@ -89,10 +84,10 @@
     </div>
 
     <!-- Divider -->
-    <div class="border-t border-yellow-400 my-16 w-2/3 mx-auto"></div>
+    <div class="border-t border-yellow-400 my-16 w-2/3 mx-auto fade-in"></div>
 
     <!-- Vision & Values -->
-    <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 fade-in delay-5">
+    <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 fade-in">
 
       <div class="glass-card p-8">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">💫 Our Vision</h2>
@@ -114,7 +109,7 @@
     </div>
 
     <!-- Meet the Chef -->
-    <div class="max-w-4xl mx-auto mt-20 fade-in delay-5">
+    <div class="max-w-4xl mx-auto mt-20 fade-in">
       <div class="glass-card p-8 text-center">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">👨‍🍳 Meet Our Chef</h2>
         <p class="text-gray-100 leading-relaxed">
@@ -125,7 +120,7 @@
     </div>
 
     <!-- Events & Catering -->
-    <div class="max-w-4xl mx-auto mt-16 fade-in delay-5">
+    <div class="max-w-4xl mx-auto mt-16 fade-in">
       <div class="glass-card p-8 text-center">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">🎉 Events & Catering</h2>
         <p class="text-gray-100 leading-relaxed">
@@ -135,7 +130,7 @@
     </div>
 
     <!-- Shop Meraki -->
-    <div class="max-w-4xl mx-auto mt-16 fade-in delay-5">
+    <div class="max-w-4xl mx-auto mt-16 fade-in">
       <div class="glass-card p-8 text-center">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">🛍️ Shop Meraki</h2>
         <p class="text-gray-100 leading-relaxed">
@@ -145,7 +140,7 @@
     </div>
 
     <!-- Testimonials -->
-    <div class="max-w-6xl mx-auto mt-20 fade-in delay-5">
+    <div class="max-w-6xl mx-auto mt-20 fade-in">
       <h2 class="text-3xl text-center text-yellow-400 font-bold mb-10">⭐ Customer Love</h2>
       <div class="grid gap-8 md:grid-cols-2">
         <div class="glass-card p-6">
@@ -160,7 +155,7 @@
     </div>
 
     <!-- Awards -->
-    <div class="max-w-4xl mx-auto mt-20 mb-10 fade-in delay-5">
+    <div class="max-w-4xl mx-auto mt-20 mb-10 fade-in">
       <div class="glass-card p-8 text-center">
         <h2 class="text-3xl text-yellow-400 font-bold mb-4">🏆 Awards & Recognition</h2>
         <p class="text-gray-100 leading-relaxed">
@@ -170,12 +165,30 @@
     </div>
 
     <!-- Back to Home -->
-    <div class="text-center mt-20 fade-in delay-5">
+    <div class="text-center mt-20 fade-in">
       <a href="index.html" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
         ⬅ Back to Home
       </a>
     </div>
 
   </div>
+
+  <!-- SCROLL ANIMATION SCRIPT -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.fade-in').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
 </body>
 </html>
