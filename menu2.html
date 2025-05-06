@@ -77,12 +77,10 @@
   </style>
 
   <script>
-    // Hide loader, start animations
     window.addEventListener('load', () => {
       document.getElementById('loader').style.display = 'none';
       document.body.classList.add('page-transition');
 
-      // Fade up animations
       const faders = document.querySelectorAll('.fade-up');
       const appearOptions = { threshold: 0.2 };
       const appearOnScroll = new IntersectionObserver((entries, observer) => {
@@ -95,18 +93,17 @@
       faders.forEach(fader => appearOnScroll.observe(fader));
     });
 
-    // Smooth page transition when clicking links
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const links = document.querySelectorAll('a');
 
       links.forEach(link => {
         if (link.hostname === window.location.hostname) {
-          link.addEventListener('click', function(event) {
+          link.addEventListener('click', function (event) {
             event.preventDefault();
             document.body.classList.add('fade-out');
             setTimeout(() => {
               window.location.href = this.href;
-            }, 500); // match CSS transition time
+            }, 500);
           });
         }
       });
@@ -124,27 +121,27 @@
   </div>
 
   <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('cheesecake')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍰 Classic Cheesecake</h2>
       <p>Rich and creamy cheesecake topped with fresh berries.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('lava')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍫 Chocolate Lava Cake</h2>
       <p>Molten chocolate cake served with vanilla ice cream.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('gelato')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍦 Artisan Gelato</h2>
       <p>Choice of pistachio, dark chocolate, or mango swirl gelato.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('cappuccino')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">☕ Signature Cappuccino</h2>
       <p>Freshly brewed espresso topped with velvety milk foam.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('mocktail')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍹 Tropical Mocktail</h2>
       <p>A refreshing blend of pineapple, orange, and mint.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div onclick="openModal('smoothie')" class="glass rounded-2xl p-6 fade-up cursor-pointer">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🥤 Iced Berry Smoothie</h2>
       <p>Frozen berries blended with yogurt and honey.</p>
     </div>
@@ -158,6 +155,71 @@
       🏠 Home
     </a>
   </div>
+
+  <!-- Modal -->
+  <div id="dishModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center z-50">
+    <div class="bg-white text-black rounded-xl p-6 max-w-md w-full relative">
+      <button onclick="closeModal()" class="absolute top-2 right-4 text-2xl font-bold text-red-600">&times;</button>
+      <h2 id="modalTitle" class="text-2xl font-bold text-orange-500 mb-2"></h2>
+      <p class="mb-2"><strong>Price:</strong> ₹<span id="modalPrice"></span></p>
+      <p class="mb-2"><strong>Ingredients:</strong> <span id="modalIngredients"></span></p>
+      <p><strong>Recipe:</strong> <span id="modalRecipe"></span></p>
+    </div>
+  </div>
+
+  <script>
+    const dishes = {
+      cheesecake: {
+        title: 'Classic Cheesecake',
+        price: '199',
+        ingredients: 'Cream cheese, sugar, graham crackers, eggs, vanilla, fresh berries',
+        recipe: 'Mix cream cheese with sugar and eggs, pour over crust, bake and chill. Top with berries.'
+      },
+      lava: {
+        title: 'Chocolate Lava Cake',
+        price: '229',
+        ingredients: 'Dark chocolate, butter, sugar, flour, eggs, vanilla, vanilla ice cream',
+        recipe: 'Bake chocolate batter at high heat for gooey center. Serve with ice cream.'
+      },
+      gelato: {
+        title: 'Artisan Gelato',
+        price: '149',
+        ingredients: 'Milk, sugar, cream, pistachio, chocolate or mango flavor',
+        recipe: 'Churn flavored base until creamy. Freeze and scoop.'
+      },
+      cappuccino: {
+        title: 'Signature Cappuccino',
+        price: '99',
+        ingredients: 'Espresso, steamed milk, milk foam, cocoa powder',
+        recipe: 'Pour steamed milk over espresso. Top with milk foam and sprinkle cocoa.'
+      },
+      mocktail: {
+        title: 'Tropical Mocktail',
+        price: '129',
+        ingredients: 'Pineapple juice, orange juice, mint, soda, ice',
+        recipe: 'Shake juices with mint, pour over ice, and top with soda.'
+      },
+      smoothie: {
+        title: 'Iced Berry Smoothie',
+        price: '139',
+        ingredients: 'Frozen berries, yogurt, honey, banana, ice',
+        recipe: 'Blend all ingredients until smooth and serve chilled.'
+      }
+    };
+
+    function openModal(dishKey) {
+      const dish = dishes[dishKey];
+      document.getElementById('modalTitle').innerText = dish.title;
+      document.getElementById('modalPrice').innerText = dish.price;
+      document.getElementById('modalIngredients').innerText = dish.ingredients;
+      document.getElementById('modalRecipe').innerText = dish.recipe;
+      document.getElementById('dishModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('dishModal').classList.add('hidden');
+    }
+  </script>
 
 </body>
 </html>
