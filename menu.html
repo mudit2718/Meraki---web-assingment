@@ -6,7 +6,6 @@
   <title>Meraki - Main Menu</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Spinner */
     #loader {
       position: fixed;
       top: 0; left: 0;
@@ -15,8 +14,6 @@
       background-size: 80px 80px;
       z-index: 9999;
     }
-
-    /* Background with overlay */
     body::before {
       content: '';
       background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
@@ -24,16 +21,13 @@
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: -2;
     }
-
     body::after {
       content: '';
-      background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+      background: rgba(0, 0, 0, 0.6);
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: -1;
     }
-
-    /* Glass effect */
     .glass {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(20px);
@@ -44,18 +38,14 @@
       transform: translateY(-6px) scale(1.03);
       box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
     }
-
     .glow-text {
       text-shadow: 0 0 5px #ff914d, 0 0 15px #ff6600;
       animation: pulse 2s infinite alternate;
     }
-
     @keyframes pulse {
       from { text-shadow: 0 0 5px #ff914d; }
       to { text-shadow: 0 0 20px #ff6600; }
     }
-
-    /* Fade-in effect */
     .fade-up {
       opacity: 0;
       transform: translateY(20px);
@@ -66,22 +56,6 @@
       transform: translateY(0);
     }
   </style>
-
-  <script>
-    window.addEventListener('load', () => {
-      document.getElementById('loader').style.display = 'none';
-      const faders = document.querySelectorAll('.fade-up');
-      const appearOptions = { threshold: 0.2 };
-      const appearOnScroll = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        });
-      }, appearOptions);
-      faders.forEach(fader => appearOnScroll.observe(fader));
-    });
-  </script>
 </head>
 
 <body class="relative text-white py-16 px-6 sm:px-8 lg:px-20 overflow-x-hidden min-h-screen">
@@ -94,27 +68,27 @@
   </div>
 
   <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="sandwich">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🥪 Veggie Delight Sandwich</h2>
       <p>Fresh veggies with creamy hummus and herbs on multigrain bread.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="pizza">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍕 Cheesy Mushroom Pizza</h2>
       <p>Stone-baked pizza with melty cheese and gourmet mushrooms.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="wrap">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🌯 Tandoori Paneer Wrap</h2>
       <p>Tandoori-spiced paneer wrapped in soft whole wheat roti.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="salad">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🥗 Mediterranean Salad Bowl</h2>
       <p>Chickpeas, cucumbers, tomatoes, feta, and olives with a tangy dressing.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="tacos">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🌮 Mexican Bean Tacos</h2>
       <p>Spiced beans with salsa and guacamole stuffed in soft tacos.</p>
     </div>
-    <div class="glass rounded-2xl p-6 fade-up">
+    <div class="glass rounded-2xl p-6 fade-up dish-card cursor-pointer" data-id="noodles">
       <h2 class="text-2xl font-bold text-amber-300 mb-2">🍜 Asian Noodle Bowl</h2>
       <p>Stir-fried noodles with tofu, veggies, and soy-ginger glaze.</p>
     </div>
@@ -129,5 +103,88 @@
     </a>
   </div>
 
+  <!-- Modal -->
+  <div id="dishModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
+    <div class="bg-white text-black rounded-2xl p-6 max-w-lg w-full relative">
+      <button id="closeModal" class="absolute top-2 right-3 text-xl text-gray-500 hover:text-black">✖</button>
+      <h2 id="modalTitle" class="text-2xl font-bold text-orange-600 mb-2"></h2>
+      <p id="modalDesc" class="mb-2"></p>
+      <p><strong>Ingredients:</strong> <span id="modalIngredients"></span></p>
+      <p><strong>Price:</strong> ₹<span id="modalPrice"></span></p>
+      <p class="mt-4 text-sm italic text-gray-600">*All items are freshly made with quality ingredients.</p>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.getElementById('loader').style.display = 'none';
+
+      const faders = document.querySelectorAll('.fade-up');
+      const appearOptions = { threshold: 0.2 };
+      const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        });
+      }, appearOptions);
+      faders.forEach(fader => appearOnScroll.observe(fader));
+    });
+
+    const dishes = {
+      sandwich: {
+        title: 'Veggie Delight Sandwich',
+        desc: 'Fresh veggies with creamy hummus and herbs on multigrain bread.',
+        ingredients: 'Multigrain bread, hummus, lettuce, tomato, cucumber, herbs',
+        price: '120'
+      },
+      pizza: {
+        title: 'Cheesy Mushroom Pizza',
+        desc: 'Stone-baked pizza with melty cheese and gourmet mushrooms.',
+        ingredients: 'Pizza dough, mozzarella, mushrooms, oregano, tomato sauce',
+        price: '220'
+      },
+      wrap: {
+        title: 'Tandoori Paneer Wrap',
+        desc: 'Tandoori-spiced paneer wrapped in soft whole wheat roti.',
+        ingredients: 'Paneer, yogurt, spices, onions, capsicum, wheat roti',
+        price: '150'
+      },
+      salad: {
+        title: 'Mediterranean Salad Bowl',
+        desc: 'Chickpeas, cucumbers, tomatoes, feta, and olives with a tangy dressing.',
+        ingredients: 'Chickpeas, cucumber, tomato, feta, olives, vinaigrette',
+        price: '130'
+      },
+      tacos: {
+        title: 'Mexican Bean Tacos',
+        desc: 'Spiced beans with salsa and guacamole stuffed in soft tacos.',
+        ingredients: 'Kidney beans, tortillas, salsa, guacamole, lettuce, cheese',
+        price: '160'
+      },
+      noodles: {
+        title: 'Asian Noodle Bowl',
+        desc: 'Stir-fried noodles with tofu, veggies, and soy-ginger glaze.',
+        ingredients: 'Noodles, tofu, bell peppers, carrots, soy sauce, ginger',
+        price: '180'
+      }
+    };
+
+    document.querySelectorAll('.dish-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const dish = dishes[id];
+        document.getElementById('modalTitle').textContent = dish.title;
+        document.getElementById('modalDesc').textContent = dish.desc;
+        document.getElementById('modalIngredients').textContent = dish.ingredients;
+        document.getElementById('modalPrice').textContent = dish.price;
+        document.getElementById('dishModal').classList.remove('hidden');
+      });
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('dishModal').classList.add('hidden');
+    });
+  </script>
 </body>
 </html>
